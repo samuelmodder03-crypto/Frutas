@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paulim Frutas - Frescor em cada pedaço</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5fff5;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* HEADER COM PERSONALIZAÇÃO EXTRA */
+        header {
+            background: linear-gradient(135deg, #27ae60, #2ecc71, #27ae60);
+            background-size: 200% 200%;
+            animation: gradientMove 5s ease infinite;
+            padding: 0.8rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid rgba(255,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efeito de brilho deslizante */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-animada {
+            font-size: 2.5rem;
+            animation: logoSpin 10s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+        }
+
+        @keyframes logoSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-container h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            transition: background 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        /* BANNER */
+        .banner {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 5%;
+        }
+
+        .banner h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .banner p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* SEÇÕES */
+        section {
+            padding: 4rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #27ae60;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #27ae60, #f1c40f);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* SOBRE */
+        .sobre-simples {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.3rem;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .sobre-simples p {
+            margin-bottom: 1rem;
+            color: #34495e;
+        }
+
+        .sobre-simples .destaque {
+            font-size: 2rem;
+            color: #27ae60;
+            font-weight: 700;
+        }
+
+        /* GALERIA DE PERSONAGENS */
+        .galeria-personagens {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .personagem {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .personagem:hover {
+            transform: translateY(-10px);
+            border-color: #27ae60;
+            box-shadow: 0 20px 40px rgba(46, 204, 113, 0.3);
+        }
+
+        /* EMOJIS ANIMADOS PERSONALIZADOS */
+        .fruta-emoji {
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+            transition: all 0.3s;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* ANIMAÇÕES */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes blink {
+            0%, 90%, 100% { opacity: 1; }
+            95% { opacity: 0; }
+        }
+
+        /* PERSONALIDADES ÚNICAS */
+        .melancia-animada {
+            animation: bounce 2s ease-in-out infinite;
+            color: #e74c3c;
+            text-shadow: 0 5px 0 #c0392b;
+            position: relative;
+        }
+        .melancia-animada::after {
+            content: "👀";
+            font-size: 0.8rem;
+            position: absolute;
+            top: 45%;
+            left: 35%;
+            animation: blink 3s infinite;
+        }
+
+        .mamao-animado {
+            animation: float 3s ease-in-out infinite;
+            color: #f39c12;
+            text-shadow: 0 5px 0 #e67e22;
+        }
+        .mamao-animado::after {
+            content: "😊";
+            font-size: 0.8rem;
+            position: absolute;
+            top: 45%;
+            left: 40%;
+        }
+
+        .melao-animado {
+            animation: pulse 2.5s ease-in-out infinite;
+            color: #f1c40f;
+            text-shadow: 0 5px 0 #f39c12;
+        }
+        .melao-animado::after {
+            content: "😎";
+            font-size: 0.8rem;
+            position: absolute;
+            top: 45%;
+            left: 40%;
+        }
+
+        .kiwi-animado {
+            animation: shake 3s ease-in-out infinite;
+            color: #27ae60;
+            text-shadow: 0 5px 0 #229954;
+        }
+        .kiwi-animado::after {
+            content: "👀";
+            font-size: 0.8rem;
+            position: absolute;
+            top: 45%;
+            left: 35%;
+        }
+
+        .abacaxi-animado {
+            animation: bounce 2.2s ease-in-out infinite;
+            color: #f39c12;
+            text-shadow: 0 5px 0 #e67e22;
+        }
+        .abacaxi-animado::after {
+            content: "😜";
+            font-size: 0.8rem;
+            position: absolute;
+            top: 45%;
+            left: 40%;
+        }
+
+        .manga-animada {
+            animation: float 2.8s ease-in-out infinite;
+            color: #f1c40f;
+            text-shadow: 0 5px 0 #f39c12;
+        }
+        .manga-animada::after {
+            content: "😋";
+            font-size: 0.8rem;
+            position: absolute;
+            top: 45%;
+            left: 40%;
+        }
+
+        .uva-animada {
+            animation: pulse 2s ease-in-out infinite;
+            color: #8e44ad;
+            text-shadow: 0 5px 0 #6c3483;
+        }
+        .uva-animada::after {
+            content: "🤩";
+            font-size: 0.8rem;
+            position: absolute;
+            top: 45%;
+            left: 40%;
+        }
+
+        .morango-animado {
+            animation: shake 2.5s ease-in-out infinite;
+            color: #e74c3c;
+            text-shadow: 0 5px 0 #c0392b;
+        }
+        .morango-animado::after {
+            content: "🥰";
+            font-size: 0.8rem;
+            position: absolute;
+            top: 45%;
+            left: 40%;
+        }
+
+        .pitaya-animada {
+            animation: float 3.2s ease-in-out infinite;
+            color: #e84393;
+            text-shadow: 0 5px 0 #c2185b;
+        }
+        .pitaya-animada::after {
+            content: "✨";
+            font-size: 0.8rem;
+            position: absolute;
+            top: 45%;
+            left: 45%;
+        }
+
+        .mix-animado {
+            animation: spin 10s linear infinite;
+            font-size: 5.5rem;
+            background: linear-gradient(45deg, #f1c40f, #e74c3c, #27ae60, #8e44ad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+        }
+
+        .personagem-nome {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 0.5rem 0;
+        }
+
+        .personagem-descricao {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 0.5rem;
+        }
+
+        .personagem-preco {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #27ae60;
+            background: rgba(39, 174, 96, 0.1);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            margin: 0.5rem 0;
+        }
+
+        .btn-personagem {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-personagem:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        /* MODAL DO MIX */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-overlay.ativo {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h2 {
+            color: #27ae60;
+            margin-bottom: 1rem;
+        }
+
+        .frutas-checkbox {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .fruta-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .modal-actions button {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-confirmar {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+        }
+
+        .btn-cancelar {
+            background: #ecf0f1;
+            color: #7f8c8d;
+        }
+
+        /* CARRINHO */
+        .carrinho-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 380px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 1rem;
+            z-index: 1000;
+            display: none;
+            border: 2px solid #27ae60;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .carrinho-container.ativo {
+            display: block;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .carrinho-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .carrinho-header h3 {
+            color: #27ae60;
+        }
+
+        .carrinho-header button {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .carrinho-items {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+
+        .carrinho-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-actions button {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            margin: 0 0.2rem;
+        }
+
+        .entrega-form {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 0.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .carrinho-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding-top: 0.5rem;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .btn-finalizar {
+            width: 100%;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+
+        .carrinho-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            font-size: 1.5rem;
+            z-index: 999;
+            box-shadow: 0 5px 20px rgba(46,204,113,0.4);
+        }
+
+        .carrinho-toggle span {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e74c3c;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        /* BOTÕES FLUTUANTES */
+        .float-buttons {
+            position: fixed;
+            left: 2rem;
+            bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .float-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .float-btn.whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .float-btn.instagram {
+            background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
+        }
+
+        /* CONTATO */
+        .contato-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contato-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+            padding: 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .contato-item:hover {
+            transform: scale(1.05);
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .instagram-btn {
+            background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .banner h2 { font-size: 2rem; }
+            .banner p { font-size: 1.2rem; }
+            .carrinho-container { width: 90%; right: 5%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <div class="logo-animada">🍍</div>
+            <h1>Paulim Frutas</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#produtos">Produtos</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- INÍCIO -->
+    <section id="home" class="banner">
+        <h2>🍉✨ FRUTAS FRESCAS PRONTAS PARA CONSUMO! ✨🍓</h2>
+        <p>🥗 Higienizadas • Cortadas • Fresquinhas</p>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre">
+        <div class="sobre-simples">
+            <p class="destaque">🥝 Frescor e praticidade na sua mesa!</p>
+            <p>Na Paulim Frutas, você encontra frutas selecionadas, higienizadas e cortadas, prontas para consumo. Economize tempo sem abrir mão da qualidade.</p>
+            <p><strong>Peça já e experimente o sabor de uma vida mais saudável!</strong></p>
+        </div>
+    </section>
+
+    <!-- PRODUTOS COM PERSONAGENS -->
+    <section id="produtos">
+        <h2 class="section-title">🥝 Conheça nossos personagens</h2>
+        <p style="text-align: center; margin-bottom: 2rem;">Cada fruta tem sua personalidade 👇</p>
+        
+        <div class="galeria-personagens" id="galeria-personagens">
+            <!-- Os personagens serão gerados via JavaScript -->
+        </div>
+    </section>
+
+    <!-- MODAL DO MIX -->
+    <div class="modal-overlay" id="mix-modal">
+        <div class="modal-content">
+            <h2><i class="fas fa-blender"></i> Monte seu Mix</h2>
+            <p>Escolha <strong>7 frutas</strong> para seu mix personalizado (R$ 22,00):</p>
+            <div class="frutas-checkbox" id="frutas-checkbox"></div>
+            <div class="modal-actions">
+                <button class="btn-cancelar" onclick="fecharModalMix()">Cancelar</button>
+                <button class="btn-confirmar" onclick="confirmarMix()">Adicionar ao carrinho</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARRINHO -->
+    <div class="carrinho-container" id="carrinho-container">
+        <div class="carrinho-header">
+            <h3><i class="fas fa-shopping-cart"></i> Seu Pedido</h3>
+            <button onclick="fecharCarrinho()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="carrinho-items" id="carrinho-items"></div>
+        <div class="entrega-form">
+            <h4><i class="fas fa-truck"></i> Dados para Entrega</h4>
+            <div class="form-group">
+                <label>Nome Completo *</label>
+                <input type="text" id="nome-cliente" placeholder="Digite seu nome" required>
+            </div>
+            <div class="form-group">
+                <label>Bairro *</label>
+                <input type="text" id="bairro" placeholder="Digite seu bairro" required>
+            </div>
+            <div class="form-group">
+                <label>Rua *</label>
+                <input type="text" id="rua" placeholder="Digite sua rua" required>
+            </div>
+            <div class="form-group">
+                <label>Número *</label>
+                <input type="text" id="numero-casa" placeholder="Número" required>
+            </div>
+            <div class="form-group">
+                <label>Referência</label>
+                <input type="text" id="referencia" placeholder="Ex: próximo ao mercado">
+            </div>
+        </div>
+        <div class="carrinho-total">
+            <span>Total:</span>
+            <span id="carrinho-total">R$ 0,00</span>
+        </div>
+        <button class="btn-finalizar" onclick="finalizarPedido()">
+            <i class="fab fa-whatsapp"></i> Finalizar Pedido
+        </button>
+    </div>
+
+    <button class="carrinho-toggle" onclick="toggleCarrinho()">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="carrinho-count">0</span>
+    </button>
+
+    <!-- BOTÕES FLUTUANTES -->
+    <div class="float-buttons">
+        <a href="https://wa.me/5588921638550?text=Olá!%20Gostaria%20de%20informações%20sobre%20as%20frutas" target="_blank" class="float-btn whatsapp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.instagram.com/paulim_frutas" target="_blank" class="float-btn instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+
+    <!-- CONTATO -->
+    <section id="contato">
+        <h2 class="section-title">📱 Fale com a gente</h2>
+        <div class="contato-container">
+            <a href="https://wa.me/5588921638550" target="_blank" class="contato-item whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> (88) 92163-8550
+            </a>
+            <a href="https://www.instagram.com/paulim_frutas" target="_blank" class="contato-item instagram-btn">
+                <i class="fab fa-instagram"></i> @paulim_frutas
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Paulim Frutas - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        // Lista de personagens
+        const personagens = [
+            { nome: "Melancia", descricao: "A brincalhona", preco: 10.00, emoji: "🍉", classe: "melancia-animada", personalidade: "vive pulando e piscando" },
+            { nome: "Mamão", descricao: "O calminho", preco: 10.00, emoji: "🍈", classe: "mamao-animado", personalidade: "flutua suavemente" },
+            { nome: "Melão de Cheiro", descricao: "O descolado", preco: 10.00, emoji: "🍈", classe: "melao-animado", personalidade: "vibra no ritmo" },
+            { nome: "Melão Espanhol", descricao: "O estiloso", preco: 10.00, emoji: "🍈", classe: "melao-animado", personalidade: "sempre na onda" },
+            { nome: "Kiwi", descricao: "O tímido", preco: 12.00, emoji: "🥝", classe: "kiwi-animado", personalidade: "balança envergonhado" },
+            { nome: "Abacaxi", descricao: "O divertido", preco: 13.00, emoji: "🍍", classe: "abacaxi-animado", personalidade: "mostra a língua" },
+            { nome: "Manga", descricao: "A gulosa", preco: 13.00, emoji: "🥭", classe: "manga-animada", personalidade: "lambe os lábios" },
+            { nome: "Uva Roxa", descricao: "A festeira", preco: 12.00, emoji: "🍇", classe: "uva-animada", personalidade: "vibra de alegria" },
+            { nome: "Uva Verde", descricao: "A sorridente", preco: 14.00, emoji: "🍇", classe: "uva-animada", personalidade: "sempre radiante" },
+            { nome: "Morango", descricao: "O apaixonado", preco: 15.00, emoji: "🍓", classe: "morango-animado", personalidade: "coração nos olhos" },
+            { nome: "Pitaya", descricao: "A mágica", preco: 16.00, emoji: "🌸", classe: "pitaya-animada", personalidade: "espalha estrelas" }
+        ];
+
+        // Carrinho
+        let carrinho = [];
+        let carrinhoAberto = false;
+
+        // Renderizar personagens
+        function renderizarPersonagens() {
+            const galeria = document.getElementById('galeria-personagens');
+            galeria.innerHTML = '';
+            
+            personagens.forEach((pers, index) => {
+                const card = document.createElement('div');
+                card.className = 'personagem';
+                card.innerHTML = `
+                    <div class="fruta-emoji ${pers.classe}">${pers.emoji}</div>
+                    <div class="personagem-nome">${pers.nome}</div>
+                    <div class="personagem-descricao">${pers.descricao}</div>
+                    <div class="personagem-preco">R$ ${pers.preco.toFixed(2)}</div>
+                    <button class="btn-personagem" onclick="adicionarAoCarrinho(${index})">
+                        <i class="fas fa-cart-plus"></i> Adicionar
+                    </button>
+                `;
+                galeria.appendChild(card);
+            });
+
+            // Card especial do Mix
+            const mixCard = document.createElement('div');
+            mixCard.className = 'personagem';
+            mixCard.innerHTML = `
+                <div class="fruta-emoji mix-animado">🥗</div>
+                <div class="personagem-nome">Mix Especial</div>
+                <div class="personagem-descricao">7 frutas sortidas</div>
+                <div class="personagem-preco">R$ 22,00</div>
+                <button class="btn-personagem" onclick="abrirModalMix()">
+                    <i class="fas fa-cart-plus"></i> Montar Mix
+                </button>
+            `;
+            galeria.appendChild(mixCard);
+        }
+
+        // Adicionar ao carrinho
+        function adicionarAoCarrinho(index) {
+            const p = personagens[index];
+            const existente = carrinho.find(item => item.nome === p.nome && !item.isMix);
+            
+            if (existente) {
+                existente.quantidade++;
+            } else {
+                carrinho.push({
+                    nome: p.nome,
+                    preco: p.preco,
+                    quantidade: 1,
+                    descricao: p.descricao,
+                    isMix: false
+                });
+            }
+            
+            atualizarCarrinho();
+            abrirCarrinho();
+        }
+
+        // Abrir modal do mix
+        function abrirModalMix() {
+            const container = document.getElementById('frutas-checkbox');
+            container.innerHTML = '';
+            
+            personagens.forEach(p => {
+                container.innerHTML += `
+                    <div class="fruta-option">
+                        <input type="checkbox" value="${p.nome}" id="mix-${p.nome}">
+                        <label for="mix-${p.nome}">${p.emoji} ${p.nome}</label>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('mix-modal').classList.add('ativo');
+        }
+
+        function fecharModalMix() {
+            document.getElementById('mix-modal').classList.remove('ativo');
+        }
+
+        function confirmarMix() {
+            const checkboxes = document.querySelectorAll('#frutas-checkbox input:checked');
+            const selecionadas = Array.from(checkboxes).map(cb => cb.value);
+            
+            if (selecionadas.length !== 7) {
+                alert(`Escolha exatamente 7 frutinhas! Você selecionou ${selecionadas.length}.`);
+                return;
+            }
+            
+            selecionadas.sort();
+            const descricao = `Mix com: ${selecionadas.join(', ')}`;
+            
+            const existente = carrinho.find(item => item.isMix && item.descricao === descricao);
+            
+            if (existente) {
+                existente.quantidade++;
+            } else {
+                carrinho.push({
+                    nome: 'Mix Personalizado',
+                    preco: 22.00,
+                    quantidade: 1,
+                    descricao: descricao,
+                    isMix: true,
+                    frutas: selecionadas
+                });
+            }
+            
+            atualizarCarrinho();
+            fecharModalMix();
+            abrirCarrinho();
+        }
+
+        // Funções do carrinho
+        function removerDoCarrinho(index) {
+            if (carrinho[index].quantidade > 1) {
+                carrinho[index].quantidade--;
+            } else {
+                carrinho.splice(index, 1);
+            }
+            atualizarCarrinho();
+        }
+
+        function removerItemCompleto(index) {
+            carrinho.splice(index, 1);
+            atualizarCarrinho();
+        }
+
+        function atualizarCarrinho() {
+            const itemsDiv = document.getElementById('carrinho-items');
+            const totalSpan = document.getElementById('carrinho-total');
+            const countSpan = document.getElementById('carrinho-count');
+            
+            itemsDiv.innerHTML = '';
+            let total = 0;
+            let count = 0;
+            
+            carrinho.forEach((item, idx) => {
+                const subtotal = item.preco * item.quantidade;
+                total += subtotal;
+                count += item.quantidade;
+                
+                itemsDiv.innerHTML += `
+                    <div class="carrinho-item">
+                        <div class="item-info">
+                            <strong>${item.nome}</strong><br>
+                            <small>${item.descricao}</small><br>
+                            <small>R$ ${item.preco.toFixed(2)} x ${item.quantidade}</small>
+                        </div>
+                        <div class="item-actions">
+                            <span>R$ ${subtotal.toFixed(2)}</span>
+                            <button onclick="removerDoCarrinho(${idx})"><i class="fas fa-minus"></i></button>
+                            <button onclick="removerItemCompleto(${idx})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            totalSpan.innerText = `R$ ${total.toFixed(2)}`;
+            countSpan.innerText = count;
+            
+            if (carrinho.length === 0) {
+                itemsDiv.innerHTML = '<p style="text-align:center; color:#7f8c8d;">Carrinho vazio</p>';
+            }
+        }
+
+        function finalizarPedido() {
+            if (carrinho.length === 0) {
+                alert('Carrinho vazio! Escolha suas frutinhas :)');
+                return;
+            }
+            
+            const nome = document.getElementById('nome-cliente').value.trim();
+            const bairro = document.getElementById('bairro').value.trim();
+            const rua = document.getElementById('rua').value.trim();
+            const numero = document.getElementById('numero-casa').value.trim();
+            
+            if (!nome || !bairro || !rua || !numero) {
+                alert('Preencha seus dados para entrega!');
+                return;
+            }
+            
+            const referencia = document.getElementById('referencia').value.trim();
+            
+            let msg = '🍉✨ *NOVO PEDIDO - PAULIM FRUTAS* ✨🍓%0A%0A';
+            msg += `*📋 DADOS*%0A`;
+            msg += `👤 ${nome}%0A`;
+            msg += `📍 ${bairro}%0A`;
+            msg += `🏠 ${rua}, ${numero}%0A`;
+            if (referencia) msg += `📍 Ref: ${referencia}%0A`;
+            
+            msg += `%0A*🛒 FRUTINHAS*%0A`;
+            
+            carrinho.forEach(item => {
+                if (item.isMix) {
+                    msg += `• ${item.nome} - ${item.quantidade}x R$ ${(item.preco * item.quantidade).toFixed(2)}%0A`;
+                    msg += `  (${item.frutas.join(', ')})%0A`;
+                } else {
+                    msg += `• ${item.nome} - ${item.quantidade}x R$ ${(item.preco * item.quantidade).toFixed(2)}%0A`;
+                }
+            });
+            
+            const total = carrinho.reduce((acc, i) => acc + (i.preco * i.quantidade), 0);
+            msg += `%0A*💰 TOTAL: R$ ${total.toFixed(2)}*%0A%0A`;
+            msg += `⏱️ Entrega: 30-50min%0A`;
+            msg += `💳 Dinheiro/Pix/Cartão%0A%0A`;
+            msg += `_Obrigado por escolher a Paulim Frutas! 🍍_`;
+            
+            window.open(`https://wa.me/5588921638550?text=${msg}`, '_blank');
+        }
+
+        function toggleCarrinho() {
+            carrinhoAberto = !carrinhoAberto;
+            document.getElementById('carrinho-container').classList.toggle('ativo', carrinhoAberto);
+        }
+
+        function abrirCarrinho() {
+            carrinhoAberto = true;
+            document.getElementById('carrinho-container').classList.add('ativo');
+        }
+
+        function fecharCarrinho() {
+            carrinhoAberto = false;
+            document.getElementById('carrinho-container').classList.remove('ativo');
+        }
+
+        // Inicializar
+        renderizarPersonagens();
+        atualizarCarrinho();
+    </script>
+</body>
+</html>
